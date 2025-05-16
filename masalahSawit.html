@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sawit Bujang Fitrah</title>
+    <style>
+        /* Reset default margin dan padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Mengatur font secara global */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        /* Kontainer utama */
+        .app-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        /* Header */
+        header h1 {
+            text-align: center;
+            color: #ff4081;
+            margin-bottom: 20px;
+        }
+
+        /* Formulir input */
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .input-section input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .input-section button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff4081;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .input-section button:hover {
+            background-color: #e33772;
+        }
+
+        /* Tabel data */
+        .data-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f7f7f7;
+            color: #ff4081;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Sawit Bujang Fitrah</h1>
+        </header>
+
+        <section class="input-section">
+            <h2>Tambah Data Anggota</h2>
+            <form id="dataForm">
+                <input type="text" id="namaAnggota" placeholder="Nama Anggota" required />
+                <input type="text" id="namaVeron" placeholder="Nama Veron" required />
+                <input type="number" id="tonase" placeholder="Tonase (kg)" required />
+                <button type="submit">Tambah Data</button>
+            </form>
+        </section>
+
+        <section class="data-section">
+            <h2>Data Anggota Sawit</h2>
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Nama Anggota</th>
+                        <th>Nama Veron</th>
+                        <th>Tonase (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data Anggota akan ditambahkan di sini -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        // Menunggu sampai halaman selesai dimuat
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ambil elemen-elemen form dan tabel
+            const form = document.getElementById("dataForm");
+            const tableBody = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+
+            // Fungsi untuk menambahkan baris baru ke tabel
+            function tambahData(namaAnggota, namaVeron, tonase) {
+                const newRow = tableBody.insertRow(); // Menambah baris baru ke tabel
+
+                // Menambah kolom untuk setiap data
+                const cellNamaAnggota = newRow.insertCell(0);
+                const cellNamaVeron = newRow.insertCell(1);
+                const cellTonase = newRow.insertCell(2);
+
+                // Menyisipkan data ke dalam sel masing-masing
+                cellNamaAnggota.textContent = namaAnggota;
+                cellNamaVeron.textContent = namaVeron;
+                cellTonase.textContent = tonase;
+            }
+
+            // Event listener untuk form submit
+            form.addEventListener("submit", function (e) {
+                e.preventDefault(); // Mencegah form untuk reload halaman
+
+                // Ambil data dari input
+                const namaAnggota = document.getElementById("namaAnggota").value;
+                const namaVeron = document.getElementById("namaVeron").value;
+                const tonase = document.getElementById("tonase").value;
+
+                // Pastikan semua field terisi
+                if (namaAnggota && namaVeron && tonase) {
+                    // Panggil fungsi untuk menambah data ke tabel
+                    tambahData(namaAnggota, namaVeron, tonase);
+
+                    // Kosongkan form setelah data ditambahkan
+                    form.reset();
+                } else {
+                    alert("Semua kolom harus diisi!");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
